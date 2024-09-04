@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="todo-app">
+            <h2>To Do List <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Todo Image"></h2>
+             <!-- add new task form -->
+            <form action="{{ url_for('my_view.add') }}" method="post">
+                <div class="row">
+                    <!-- imput form to handle our tasks -->
+                    <input type="text" name="task" placeholder="Enter a Task" required>
+                    <div class="btn">
+                        <button class="btn" type="submit">Add</button>
+                    </div>
+                </div>
+            </form>
+            <hr> <!-- A horizontal rule -->
+            {% for todo in todo_list %} <!-- A loop that iterates over each todo item in the todo_list  -->
+                <div class="task-item">
+                    <form action="{{ url_for('my_view.update_task', todo_id=todo.id) }}" method="post" class="inline-form">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="complete" {% if todo.complete %}checked{% endif %} onchange="this.form.submit()">
+                            <span class="checkmark"></span> <!-- a span has been used to stylise the check box-->
+                        </label>
+                    </form>
+                    <p class="task-text">
+                        {% if todo.complete %}
+                            <del>{{ todo.task }}</del> <!--this would erase the task once the check box has been marked -->
+                        {% else %}
+                            {{ todo.task }} 
+                        {% endif %}
+                    </p>
+                
+                    <form action="{{ url_for('my_view.delete', todo_id=todo.id) }}" method="post" class="inline-form">
+                        <button class="btn2" type="submit">
+                            <img src="{{ url_for('static', filename='images/trash.png') }}" alt="Delete" class="action-icon">
+                        </button>
+                    </form>
+                   
+                    <form action="{{ url_for('my_view.edit', todo_id=todo.id) }}" method="get" class="inline-form">
+                        <button class="btn2" type="submit">
+                            <img src="{{ url_for('static', filename='images/pencil.png') }}" alt="Delete" class="action-icon">
+                        </button> <!--this adds and icon the botton and CSS is handling the style-->
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

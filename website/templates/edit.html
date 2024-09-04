@@ -1,0 +1,25 @@
+<!-- this page has been created to re-edit a task -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <title>Edit Task</title>
+</head>
+<body>
+    <div class="container">
+        <div class="todo-app">
+    <h2>Edit Task <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Todo Image" ></h2>
+    <form action="{{ url_for('my_view.edit', todo_id=todo.id) }}" method="post">
+        <input class="row-edit" type="text" name="task" value="{{ todo.task }}" required>
+        <button class= "btn3" type="submit">   
+            <img src="{{ url_for('static', filename='images/save.png') }}" alt="Delete" class="action-icon">
+        </button>
+    </form>
+    <a class= "canx" href="{{ url_for('my_view.home') }}"> Cancel </a>
+        </div>
+    </div>
+</body>
+</html>
