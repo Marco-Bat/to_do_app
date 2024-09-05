@@ -13,6 +13,11 @@
         <div class="todo-app">
             <h2>To Do List <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Todo Image"></h2>
              <!-- add new task form -->
+                <p>
+                    {% if message %}
+                    {{message}}
+                    {% endif %}
+                </p>
             <form action="{{ url_for('my_view.add') }}" method="post">
                 <div class="row">
                     <!-- imput form to handle our tasks -->
@@ -37,7 +42,6 @@
                         {% else %}
                             {{ todo.task }} 
                         {% endif %}
-                    
                     </p>
                 
                     <form action="{{ url_for('my_view.delete', todo_id=todo.id) }}" method="post" class="inline-form">
